@@ -508,8 +508,8 @@ services:
       JAEGER_AGENT_HOST: jaeger
       JAEGER_AGENT_PORT: 6831
     networks:
-      - baas-{{ .ClusterName }}_db
-      - baas-{{ .ClusterName }}_telemetry
+      - {{ .ClusterName }}_db
+      - {{ .ClusterName }}_telemetry
     restart: unless-stopped
   opa:
     image: openpolicyagent/opa:0.13.2
@@ -531,9 +531,9 @@ services:
       {{end}}
 
 networks:
-  baas-{{ .ClusterName }}_db:
+  {{ .ClusterName }}_db:
     external: true
-  baas-{{ .ClusterName }}_telemetry:
+  {{ .ClusterName }}_telemetry:
     external: true
 `,
 	"dockerfile.tmpl": `FROM golang AS build
@@ -628,7 +628,7 @@ func make{{$opid}}Endpoint(s Service, logger log.Factory, tracer opentracing.Tra
 
 `,
 	"gitignore.tmpl": `.env`,
-	"go.mod.tmpl": `module github.com/12kmps/baas-{{.}}
+	"go.mod.tmpl": `module github.com/example/{{.}}
 
 go 1.17
 
@@ -666,13 +666,13 @@ import (
 	"os"
   _ "embed"
 
-	"github.com/12kmps/codegen-go/pkg/runtime"
-	openapi_types "github.com/12kmps/codegen-go/pkg/types"
+	"github.com/jdotw/oapi3-gokit-codegen/pkg/runtime"
+	openapi_types "github.com/jdotw/oapi3-gokit-codegen/pkg/types"
 
-  "github.com/12kmps/baas/log"
-	"github.com/12kmps/baas/tracing"
-  "github.com/12kmps/baas/authn/jwt"
-	"github.com/12kmps/baas/transport"
+  "github.com/jdotw/go-utils/log"
+	"github.com/jdotw/go-utils/tracing"
+  "github.com/jdotw/go-utils/authn/jwt"
+	"github.com/jdotw/go-utils/transport"
 	"go.uber.org/zap"
 	"github.com/go-kit/kit/endpoint"
 	kittracing "github.com/go-kit/kit/tracing/opentracing"
@@ -1042,4 +1042,3 @@ func Parse(t *template.Template) (*template.Template, error) {
 	}
 	return t, nil
 }
-
