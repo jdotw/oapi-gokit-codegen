@@ -6,8 +6,8 @@ import (
 	"go/token"
 	"testing"
 
-	"github.com/12kmps/codegen-go/pkg/codegen"
 	"github.com/getkin/kin-openapi/openapi3"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/codegen"
 	"github.com/stretchr/testify/require"
 )
 

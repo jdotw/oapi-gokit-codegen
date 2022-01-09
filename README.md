@@ -28,8 +28,8 @@ write a lot of boilerplate code to perform all the marshalling and unmarshalling
 into objects which match the OpenAPI 3.0 definition. The code generator in this
 directory does a lot of that for you. You would run it like so:
 
-    go get github.com/jdotw/oapi-gokit-codegen/cmd/oapi-codegen
-    oapi-codegen petstore-expanded.yaml  > petstore.gen.go
+    go get github.com/jdotw/oapi-gokit-codegen/cmd/oapi-gokit-codegen
+    oapi-gokit-codegen petstore-expanded.yaml  > petstore.gen.go
 
 Let's go through that `petstore.gen.go` file to show you everything which was
 generated.
@@ -479,13 +479,13 @@ which help you to use the various OpenAPI 3 Authentication mechanism.
 
 ## Extensions
 
-`oapi-codegen` supports the following extended properties:
+`oapi-gokit-codegen` supports the following extended properties:
 
 - `x-go-type`: specifies Go type name. It allows you to specify the type name for a schema, and
   will override any default value. This extended property isn't supported in all parts of
   OpenAPI, so please refer to the spec as to where it's allowed. Swagger validation tools will
   flag incorrect usage of this property.
-- `x-oapi-codegen-extra-tags`: adds extra Go field tags to the generated struct field. This is
+- `x-oapi-gokit-codegen-extra-tags`: adds extra Go field tags to the generated struct field. This is
   useful for interfacing with tag based ORM or validation libraries. The extra tags that
   are added are in addition to the regular json tags that are generated. If you specify your
   own `json` tag, you will override the default one.
@@ -497,7 +497,7 @@ which help you to use the various OpenAPI 3 Authentication mechanism.
         properties:
           name:
             type: string
-            x-oapi-codegen-extra-tags:
+            x-oapi-gokit-codegen-extra-tags:
               tag1: value1
               tag2: value2
   ```
@@ -508,9 +508,9 @@ which help you to use the various OpenAPI 3 Authentication mechanism.
   Name string `json:"name" tag1:"value1" tag2:"value2"`
   ```
 
-## Using `oapi-codegen`
+## Using `oapi-gokit-codegen`
 
-The default options for `oapi-codegen` will generate everything; client, server,
+The default options for `oapi-gokit-codegen` will generate everything; client, server,
 type definitions and embedded swagger spec, but you can generate subsets of
 those via the `-generate` flag. It defaults to `types,client,server,spec`, but
 you can specify any combination of those.
@@ -533,10 +533,10 @@ you can specify any combination of those.
   Go include paths. Please see below.
 
 So, for example, if you would like to produce only the server code, you could
-run `oapi-codegen -generate types,server`. You could generate `types` and
+run `oapi-gokit-codegen -generate types,server`. You could generate `types` and
 `server` into separate files, but both are required for the server code.
 
-`oapi-codegen` can filter paths base on their tags in the openapi definition.
+`oapi-gokit-codegen` can filter paths base on their tags in the openapi definition.
 Use either `-include-tags` or `-exclude-tags` followed by a comma-separated list
 of tags. For instance, to generate a server that serves all paths except those
 tagged with `auth` or `admin`, use the argument, `-exclude-tags="auth,admin"`.
@@ -544,7 +544,7 @@ To generate a server that only handles `admin` paths, use the argument
 `-include-tags="admin"`. When neither of these arguments is present, all paths
 are generated.
 
-`oapi-codegen` can filter schemas based on the option `--exclude-schemas`, which is
+`oapi-gokit-codegen` can filter schemas based on the option `--exclude-schemas`, which is
 a comma separated list of schema names. For instance, `--exclude-schemas=Pet,NewPet`
 will exclude from generation schemas `Pet` and `NewPet`. This allow to have a
 in the same package a manually defined structure or interface and refer to it
@@ -567,7 +567,7 @@ import-mapping:
   ./packageB/spec.yaml: github.com/jdotw/oapi-gokit-codegen/internal/test/externalref/packageB
 ```
 
-Have a look at [`cmd/oapi-codegen/oapi-codegen.go`](https://github.com/jdotw/oapi-gokit-codegen/blob/master/cmd/oapi-codegen/oapi-codegen.go#L48)
+Have a look at [`cmd/oapi-gokit-codegen/oapi-gokit-codegen.go`](https://github.com/jdotw/oapi-gokit-codegen/blob/master/cmd/oapi-gokit-codegen/oapi-gokit-codegen.go#L48)
 to see all the fields on the configuration structure.
 
 ### Import Mappings
@@ -581,8 +581,8 @@ An external reference looks like this:
     $ref: ./some_spec.yaml#/components/schemas/Type
 
 We assume that you have already generated the boilerplate code for `./some_spec.yaml`
-using `oapi-codegen`, and you have a package which contains the generated code,
-let's call it `github.com/deepmap/some-package`. You need to tell `oapi-codegen` that
+using `oapi-gokit-codegen`, and you have a package which contains the generated code,
+let's call it `github.com/deepmap/some-package`. You need to tell `oapi-gokit-codegen` that
 `some_spec.yaml` corresponds to this package, and you would do it by specifying
 this command line argument:
 
@@ -643,7 +643,7 @@ on-the-fly at run time. Example:
     $ ls -1 my-templates/
     client.tmpl
     typedef.tmpl
-    $ oapi-codegen \
+    $ oapi-gokit-codegen \
         -templates my-templates/ \
         -generate types,client \
         petstore-expanded.yaml

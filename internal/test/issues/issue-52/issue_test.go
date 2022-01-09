@@ -6,7 +6,7 @@ import (
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/stretchr/testify/require"
 
-	"github.com/12kmps/codegen-go/pkg/codegen"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/codegen"
 )
 
 const spec = `

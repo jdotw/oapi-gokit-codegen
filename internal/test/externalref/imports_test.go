@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/12kmps/codegen-go/internal/test/externalref/packageA"
-	"github.com/12kmps/codegen-go/internal/test/externalref/packageB"
+	"github.com/jdotw/oapi-gokit-codegen/internal/test/externalref/packageA"
+	"github.com/jdotw/oapi-gokit-codegen/internal/test/externalref/packageB"
 )
 
 func TestParameters(t *testing.T) {

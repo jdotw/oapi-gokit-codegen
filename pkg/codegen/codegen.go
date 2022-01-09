@@ -131,12 +131,12 @@ func Generate(swaggerFile string, projectName string, packageName string, tag st
 
 	// This creates the golang templates text package
 	TemplateFunctions["opts"] = func() Options { return opts }
-	t := template.New("oapi-codegen").Funcs(TemplateFunctions)
+	t := template.New("oapi-gokit-codegen").Funcs(TemplateFunctions)
 	// This parses all of our own template files into the template object
 	// above
 	t, err = templates.Parse(t)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing oapi-codegen templates: %w", err)
+		return nil, fmt.Errorf("error parsing oapi-gokit-codegen templates: %w", err)
 	}
 
 	// Override built-in templates with user-provided versions
@@ -282,12 +282,12 @@ func GenerateMain(swaggerFile string, projectName string, tags []string, opts Op
 
 	// This creates the golang templates text package
 	TemplateFunctions["opts"] = func() Options { return opts }
-	t := template.New("oapi-codegen").Funcs(TemplateFunctions)
+	t := template.New("oapi-gokit-codegen").Funcs(TemplateFunctions)
 	// This parses all of our own template files into the template object
 	// above
 	t, err = templates.Parse(t)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing oapi-codegen templates: %w", err)
+		return nil, fmt.Errorf("error parsing oapi-gokit-codegen templates: %w", err)
 	}
 
 	var tagOps []TagOperations
@@ -326,12 +326,12 @@ func GenerateMain(swaggerFile string, projectName string, tags []string, opts Op
 func GenerateProject(swaggerFile string, projectName string, opts Options) (*string, error) {
 	// This creates the golang templates text package
 	TemplateFunctions["opts"] = func() Options { return opts }
-	t := template.New("oapi-codegen").Funcs(TemplateFunctions)
+	t := template.New("oapi-gokit-codegen").Funcs(TemplateFunctions)
 	// This parses all of our own template files into the template object
 	// above
 	t, err := templates.Parse(t)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing oapi-codegen templates: %w", err)
+		return nil, fmt.Errorf("error parsing oapi-gokit-codegen templates: %w", err)
 	}
 
 	mainOut, err := GenerateProjectDefinitions(t, projectName)
@@ -344,12 +344,12 @@ func GenerateProject(swaggerFile string, projectName string, opts Options) (*str
 func GenerateDocker(swaggerFile string, projectName string, clusterName string, tags []string, opts Options) (*DockerOutputs, error) {
 	// This creates the golang templates text package
 	TemplateFunctions["opts"] = func() Options { return opts }
-	t := template.New("oapi-codegen").Funcs(TemplateFunctions)
+	t := template.New("oapi-gokit-codegen").Funcs(TemplateFunctions)
 	// This parses all of our own template files into the template object
 	// above
 	t, err := templates.Parse(t)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing oapi-codegen templates: %w", err)
+		return nil, fmt.Errorf("error parsing oapi-gokit-codegen templates: %w", err)
 	}
 
 	out, err := GenerateDockerDefinitions(t, DockerInputs{
@@ -366,12 +366,12 @@ func GenerateDocker(swaggerFile string, projectName string, clusterName string, 
 func GenerateGitIgnore(swaggerFile string, projectName string, opts Options) (*string, error) {
 	// This creates the golang templates text package
 	TemplateFunctions["opts"] = func() Options { return opts }
-	t := template.New("oapi-codegen").Funcs(TemplateFunctions)
+	t := template.New("oapi-gokit-codegen").Funcs(TemplateFunctions)
 	// This parses all of our own template files into the template object
 	// above
 	t, err := templates.Parse(t)
 	if err != nil {
-		return nil, fmt.Errorf("error parsing oapi-codegen templates: %w", err)
+		return nil, fmt.Errorf("error parsing oapi-gokit-codegen templates: %w", err)
 	}
 
 	out, err := GenerateGitIgnoreDefinitions(t, projectName)

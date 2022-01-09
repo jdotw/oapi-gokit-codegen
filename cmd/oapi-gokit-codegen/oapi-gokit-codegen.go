@@ -75,7 +75,7 @@ func main() {
 	flag.StringVar(&flagTemplatesDir, "templates", "", "Path to directory containing user templates")
 	flag.StringVar(&flagImportMapping, "import-mapping", "", "A dict from the external reference to golang package path")
 	flag.StringVar(&flagExcludeSchemas, "exclude-schemas", "", "A comma separated list of schemas which must be excluded from generation")
-	flag.StringVar(&flagConfigFile, "config", "", "a YAML config file that controls oapi-codegen behavior")
+	flag.StringVar(&flagConfigFile, "config", "", "a YAML config file that controls oapi-gokit-codegen behavior")
 	flag.BoolVar(&flagAliasTypes, "alias-types", false, "Alias type declarations of possible")
 	flag.BoolVar(&flagPrintVersion, "version", false, "when specified, print version and exit")
 	flag.Parse()

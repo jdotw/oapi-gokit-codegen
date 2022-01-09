@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/12kmps/codegen-go/pkg/testutil"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/testutil"
 )
 
 type testServer struct {

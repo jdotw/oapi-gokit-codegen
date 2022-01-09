@@ -8,7 +8,7 @@ import (
 const (
 	extPropGoType    = "x-go-type"
 	extPropOmitEmpty = "x-omitempty"
-	extPropExtraTags = "x-oapi-codegen-extra-tags"
+	extPropExtraTags = "x-oapi-gokit-codegen-extra-tags"
 )
 
 func extTypeName(extPropValue interface{}) (string, error) {
