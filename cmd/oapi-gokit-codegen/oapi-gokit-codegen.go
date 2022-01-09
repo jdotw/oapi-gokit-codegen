@@ -86,7 +86,7 @@ func main() {
 			fmt.Fprintln(os.Stderr, "error reading build info")
 			os.Exit(1)
 		}
-		fmt.Println(bi.Main.Path + "/cmd/oapi3-gokit-codegen")
+		fmt.Println(bi.Main.Path + "/cmd/oapi-gokit-codegen")
 		fmt.Println(bi.Main.Version)
 		return
 	}

@@ -666,8 +666,8 @@ import (
 	"os"
   _ "embed"
 
-	"github.com/jdotw/oapi3-gokit-codegen/pkg/runtime"
-	openapi_types "github.com/jdotw/oapi3-gokit-codegen/pkg/types"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/runtime"
+	openapi_types "github.com/jdotw/oapi-gokit-codegen/pkg/types"
 
   "github.com/jdotw/go-utils/log"
 	"github.com/jdotw/go-utils/tracing"
@@ -1046,4 +1046,3 @@ func Parse(t *template.Template) (*template.Template, error) {
 	}
 	return t, nil
 }
-
