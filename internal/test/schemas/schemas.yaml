@@ -134,7 +134,7 @@ components:
     CustomStringType:
       type: string
       format: custom
-      x-oapi-gokit-codegen-extra-tags:
+      x-oapi-codegen-extra-tags:
         foo: bar
     NullableProperties:
       type: object

@@ -305,7 +305,7 @@ components:
         dead_since:
           type: string
           format: date-time
-          x-oapi-gokit-codegen-extra-tags:
+          x-oapi-codegen-extra-tags:
             tag1: value1
             tag2: value2
         cause:
