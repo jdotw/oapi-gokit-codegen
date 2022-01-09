@@ -22,9 +22,9 @@ import (
 	"net/url"
 	"testing"
 
-	"github.com/12kmps/codegen-go/pkg/testutil"
 	"github.com/getkin/kin-openapi/openapi3"
 	"github.com/getkin/kin-openapi/openapi3filter"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/testutil"
 	"github.com/labstack/echo/v4"
 	echomiddleware "github.com/labstack/echo/v4/middleware"
 	"github.com/stretchr/testify/assert"

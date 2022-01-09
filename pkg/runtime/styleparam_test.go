@@ -19,7 +19,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/12kmps/codegen-go/pkg/types"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/types"
 )
 
 func TestStyleParam(t *testing.T) {

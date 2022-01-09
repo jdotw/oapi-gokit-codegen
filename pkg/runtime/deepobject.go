@@ -11,7 +11,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/12kmps/codegen-go/pkg/types"
+	"github.com/jdotw/oapi-gokit-codegen/pkg/types"
 )
 
 func marshalDeepObject(in interface{}, path []string) ([]string, error) {
