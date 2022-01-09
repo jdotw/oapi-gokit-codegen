@@ -873,7 +873,7 @@ func NewGormRepository(ctx context.Context, connString string, logger log.Factor
 {{$opid := .OperationId -}}
 {{$tag := .Tag -}}
 {{$successResponse := getSuccessResponseTypeDefinition .}}
-  func (p *repository) {{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) (*{{$successResponse.Schema.GoType}}, error) {
+  func (p *repository) {{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) ({{if $successResponse}}*{{$successResponse.Schema.GoType}}, {{end}}error) {
     {{if isCreate .}}
     var tx *gorm.DB
 	  var v {{$successResponse.Schema.GoType}}
@@ -913,7 +913,7 @@ func NewGormRepository(ctx context.Context, connString string, logger log.Factor
     {{end}}
     {{if isOther .}}
     // TODO: Unable to generate code for this Operation
-    return nil, errors.New("Not Implemented")
+    return {{if $successResponse}}nil, {{end}}errors.New("Not Implemented")
     {{end}}
   }
 {{end}}
@@ -925,7 +925,7 @@ type Repository interface {
 {{range .Ops}}
 {{$opid := .OperationId -}}
 {{$successResponse := getSuccessResponseTypeDefinition .}}
-{{$tag := .Tag -}}{{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) (*{{$successResponse.Schema.GoType}}, error){{end}}
+{{$tag := .Tag -}}{{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) ({{if $successResponse }}*{{$successResponse.Schema.GoType}}, {{end}}error){{end}}
 }
 `,
 	"request-bodies.tmpl": `{{range .}}{{$opid := .OperationId}}
@@ -946,7 +946,7 @@ type Service interface {
 {{$pathParams := .PathParams -}}
 {{$opid := .OperationId -}}
 {{$successResponse := getSuccessResponseTypeDefinition .}}
-{{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) (*{{$successResponse.Schema.GoType}}, error){{end}}
+{{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) ({{if $successResponse}}*{{$successResponse.Schema.GoType}}, {{end}}error){{end}}
 }
 
 type service struct {
@@ -969,7 +969,7 @@ func NewService(repository Repository, logger log.Factory, tracer opentracing.Tr
 {{$opid := .OperationId -}}
 {{$successResponse := getSuccessResponseTypeDefinition .}}
 {{$tag := .Tag -}}
-  func (f *service) {{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) (*{{$successResponse.Schema.GoType}}, error) {
+  func (f *service) {{$opid}}(ctx context.Context{{genParamArgs .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}} *{{.Schema.GoType}}{{end}}) ({{if $successResponse}}*{{$successResponse.Schema.GoType}}, {{end}}error) {
     v, err := f.repository.{{$opid}}(ctx{{genParamNames .PathParams}}{{range .Bodies}}, {{lcFirst .Schema.GoType}}{{end}})
     return v, err
   }

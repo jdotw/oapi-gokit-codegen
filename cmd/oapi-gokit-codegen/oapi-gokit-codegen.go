@@ -185,7 +185,12 @@ func main() {
 			errExit("error generating code: %s\n", err)
 		}
 
-		tagPath := cfg.OutputFile + "/" + strings.ToLower(t)
+		pkgPath := cfg.OutputFile + "/pkg"
+		err = os.Mkdir(pkgPath, 0755)
+		if err != nil && !os.IsExist(err) {
+			errExit("error creating pkg output path: %s", err)
+		}
+		tagPath := pkgPath + "/" + strings.ToLower(t)
 		err = os.Mkdir(tagPath, 0755)
 		if err != nil && !os.IsExist(err) {
 			errExit("error creating tag-specific output path: %s", err)

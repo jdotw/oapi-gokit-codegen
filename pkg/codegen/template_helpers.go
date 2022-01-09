@@ -94,7 +94,7 @@ func uniqueResponseBodyTypes(ops []OperationDefinition) []string {
 	bodyTypesByType = make(map[string]bool)
 	for _, op := range ops {
 		for _, body := range getResponseTypeDefinitions(&op) {
-			if body.TypeName == "JSON200" && !bodyTypesByType[body.Schema.GoType] {
+			if (body.TypeName == "JSON200" || body.TypeName == "200") && !bodyTypesByType[body.Schema.GoType] {
 				bodyTypesByType[body.Schema.GoType] = true
 			}
 		}
@@ -307,7 +307,7 @@ func getSuccessResponseTypeDefinition(op *OperationDefinition) *ResponseTypeDefi
 		panic(err)
 	}
 	for _, t := range td {
-		if t.TypeName == "JSON200" {
+		if t.TypeName == "JSON200" || t.TypeName == "200" {
 			return &t
 		}
 	}
@@ -315,6 +315,9 @@ func getSuccessResponseTypeDefinition(op *OperationDefinition) *ResponseTypeDefi
 }
 
 func isBoolResponseType(r *ResponseTypeDefinition) bool {
+	if r == nil {
+		return false
+	}
 	if r.Schema.GoType == "bool" {
 		return true
 	} else {
